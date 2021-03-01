@@ -106,11 +106,11 @@
                 <div class="nav-box">
 
                     <!-- Start Atribute Navigation -->
-                    <div class="attr-nav inc-border">
+                    <!-- <div class="attr-nav inc-border">
                         <ul>
                             <li class="button"><a href="#">سجل معنا</a></li>
                         </ul>
-                    </div>        
+                    </div>   -->      
                     <!-- End Atribute Navigation -->
 
                     <!-- Start Header Navigation -->
@@ -127,7 +127,7 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="navbar-menu">
-                        <ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
+                        <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle active" data-toggle="dropdown" >الرئيسية</a>
                             <ul class="dropdown-menu">
@@ -164,28 +164,16 @@
                                 <li><a href="404.html">Error Page</a></li>
                             </ul>
                         </li>
-                        <!-- <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Services</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="services.html">Services Version One</a></li>
-                                <li><a href="services-2.html">Services Version Two</a></li>
-                                <li><a href="services-3.html">Services Version Three</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="case-studies.html">Case Studies</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Blog</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="blog-standard.html">Blog Standard</a></li>
-                                <li><a href="blog-with-sidebar.html">Blog With Sidebar</a></li>
-                                <li><a href="blog-2-colum.html">Blog Grid Two Colum</a></li>
-                                <li><a href="blog-3-colum.html">Blog Grid Three Colum</a></li>
-                                <li><a href="blog-single.html">Blog Single</a></li>
-                                <li><a href="blog-single-with-sidebar.html">Blog Single With Sidebar</a></li>
-                            </ul>
-                        </li> -->
                         <li>
                             <a href="contact.html">اتصل بنا</a>
+                        </li>
+                         <li class="dropdown">
+                            <a href="{% url 'signup' %}"  >سجل معنا</a>
+
+                        </li> 
+                        <li class="dropdown">
+                            <a href="{% url 'login' %}"  >تسجيل الدخول</a>
+
                         </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -211,6 +199,7 @@
                         <div class="box-cell shadow dark">
                             <div class="container">
                                 <div class="row">
+
                                     <div class="col-lg-8 offset-lg-2">
                                         <div class="content">
                                             <h2 data-animation="animated slideInRight">خلق أفضل <strong>حلول تكنولوجيا المعلومات</strong></h2>
@@ -277,6 +266,19 @@
                     <div class="col-lg-7 info">
                         <div class="top-info">
                             <div class="row">
+                                {% for message in messages %}
+                                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
+                                            <div class="alert alert-success" role="alert">{{message}}</div>
+                                        {% else %}
+                                            <div class="alert alert-danger" role="alert">{{message}}</div>
+                                            
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if request.user.is_authenticated %}
+                                        
+                                        {{request.user}}
+                                    {% endif %}
                                 <div class="col-lg-6 col-md-6">
                                     <div class="item">
                                         <div class="title">

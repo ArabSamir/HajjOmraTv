@@ -6690,3 +6690,10 @@ footer.demo .copyright {
 .attr-nav > ul > li.button a img {
     height: 30px;
 }
+
+
+
+nav.navbar.bootsnav ul.nav > li > a{
+      font-size: 23px;
+
+}

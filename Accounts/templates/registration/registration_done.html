@@ -1,0 +1,34 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+
+{% block title %}
+E-mail d'activation envoyé
+{% endblock title %}
+
+
+
+{% block navbar %}
+    {% include  "base/nav_base.html" %}
+{% endblock navbar %}
+
+
+
+{% block body %}
+<section class="log-wrapper">
+	<div class="container">
+		<div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1">
+			<div class="log-box">
+		<div class="booking-confirm padd-top-30 padd-bot-30">
+			<i class="fa fa-check" aria-hidden="true"></i>
+			<h2 class="mrg-top-15">E-mail d'Activation du Compte Envoyé</h2>
+			<p>Un e-amil a été envoyé a votre adresse. Suivez Les instructions fournies pour activé votre compte.</p>
+			<p>Si vous n'avez pas reçu d'e-mail, veuillez nous contacter sur cet e-mail info@mulvice.org en utilisant l'e-mail avec lequel vous vous êtes inscrit</p>
+		</div>
+			</div>
+		</div>
+	</div>
+</section>
+    
+{% endblock body %}
+
