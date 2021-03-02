@@ -51,7 +51,7 @@ class UserManager(BaseUserManager ):
 
 class User(AbstractBaseUser ,PermissionsMixin):
 	email = models.EmailField(
-		verbose_name='email address',
+		verbose_name='اسم المستخدم',
 		max_length=255,
 		unique=True,
 

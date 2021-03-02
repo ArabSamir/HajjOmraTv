@@ -13,10 +13,10 @@ class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
 
-    username = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'form-control', 'type': 'email', 'name': 'email', 'placeholder': 'Email'}))
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={'class': 'form-control','autofocus': True ,'placeholder': 'Mot de passe', }))
+    username = forms.EmailField(label= 'إسم المستخدم',widget=forms.TextInput(
+        attrs={'class': 'form-control text-right text-right', 'type': 'email', 'name': 'email', '': 'Email'}))
+    password = forms.CharField(label= 'كلمه السر',widget=forms.PasswordInput(
+        attrs={'class': 'form-control text-right','autofocus': True ,'': 'Mot de passe', }))
 
 
 
@@ -24,21 +24,23 @@ class ResetPasswordForm(PasswordResetForm):
     def __init__(self, *args, **kwargs):
         super(PasswordResetForm, self).__init__(*args, **kwargs)
 
-    email = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'form-control', 'type': 'email', 'placeholder': 'Votre adresse e-mail :', }))
+    email = forms.EmailField(label= 'إسم المستخدم',widget=forms.TextInput(
+        attrs={'class': 'form-control text-right', 'type': 'email', '': 'Votre adresse e-mail :', }))
    
 
 
 class PasswordSetForm(SetPasswordForm):
    
     new_password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control' , 'placeholder': 'Le nouveau mot de passe :' , }),
+        label= 'كلمة السر الجديدة',
+        widget=forms.PasswordInput(attrs={'class': 'form-control text-right' , '': 'Le nouveau mot de passe :' , }),
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
     )
     new_password2 = forms.CharField(
         strip=False,
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmez le nouveau mot de passe :'}),
+        label='تأكيد كلمة السر الجديدة',
+        widget=forms.PasswordInput(attrs={'class': 'form-control text-right', '': 'Confirmez le nouveau mot de passe :'}),
     )
 
 
@@ -47,33 +49,36 @@ class ChangePasswordForm(PasswordChangeForm):
         super(PasswordChangeForm, self).__init__(*args, **kwargs)
 
     old_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':"Ancien mot de passe :"}),
+        label= 'كلمة السر القديمة',
+        widget=forms.PasswordInput(attrs={'class': 'form-control text-right', '':"Ancien mot de passe :"}),
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
     )
     new_password1 = forms.CharField(
         strip=False,
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':"Le nouveau mot de passe :"}),
+        label= 'كلمة السر الجديدة',
+        widget=forms.PasswordInput(attrs={'class': 'form-control text-right', '':"Le nouveau mot de passe :"}),
     )
 
     new_password2 = forms.CharField(
         strip=False,
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':"Confirmez le nouveau mot de passe :"}),
+        label='تأكيد كلمة السر الجديدة',
+        widget=forms.PasswordInput(attrs={'class': 'form-control text-right', '':"Confirmez le nouveau mot de passe :"}),
     )
 
 #--------------user creation form-----------------
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    name = forms.CharField(required=True)
-    lastname = forms.CharField(required=True)
+    email = forms.EmailField(label= 'إسم المستخدم',required=True)
+    name = forms.CharField(label= 'الإسم ',required=True)
+    lastname = forms.CharField(label= 'اللقب',required=True)
     password1 = forms.CharField(
-        label = 'Mot de passe',
+        label = 'كلمة السر',
         strip=False,
         widget=forms.PasswordInput,
 
     )
     password2 = forms.CharField(
-        label = 'Confirmation',
+        label = 'تأكيد كلمة السر الجديدة',
         strip=False,
         widget=forms.PasswordInput,
 
@@ -81,11 +86,11 @@ class RegistrationForm(UserCreationForm):
 
 
 
-    email.widget.attrs.update({'class': 'form-control','autofocus': True ,'placeholder':'E-mail'})
-    name.widget.attrs.update({'class': 'form-control','autofocus': True ,'placeholder':'Prénom'})
-    lastname.widget.attrs.update({'class': 'form-control','autofocus': True ,'placeholder':'Nom'})
-    password1.widget.attrs.update({'class': 'form-control','autofocus': True, 'placeholder':'Mot de passe'})
-    password2.widget.attrs.update({'class': 'form-control','autofocus': True , 'placeholder':'Confirmé le Mot de passe' })
+    email.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'E-mail'})
+    name.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'Prénom'})
+    lastname.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'Nom'})
+    password1.widget.attrs.update({'class': 'form-control text-right','autofocus': True, '':'Mot de passe'})
+    password2.widget.attrs.update({'class': 'form-control text-right','autofocus': True , '':'Confirmé le Mot de passe' })
     
     class Meta:
         model = User
@@ -119,8 +124,8 @@ class RegistrationForm(UserCreationForm):
 
 
 class RegisterForm(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    password1 = forms.CharField(label=' كلمة السر ا',widget=forms.PasswordInput)
+    password2 = forms.CharField(label='تأكيد كلمة السر الجديدة', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -146,8 +151,8 @@ class RegisterForm(forms.ModelForm):
 class UserAdminCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(label=' كلمة السر ا', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='تأكيد كلمة السر الجديدة', widget=forms.PasswordInput)
 
     class Meta:
         model = User

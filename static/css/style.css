@@ -5,7 +5,7 @@ Author: validtheme
 Description:
 Version: 1.1
 
-Main Font    : Heebo
+Main Font    : Cairo
 Main Color   : #104cba
 
 -------------------------------------
@@ -66,7 +66,7 @@ Table of contents
 ** General Styles for HTML tags
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;600;800&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;800&amp;display=swap');
 
 * {
   padding: 0;
@@ -81,7 +81,7 @@ html {
 }
 
 body {
-  font-family: 'Heebo', sans-serif;
+  font-family: 'Cairo', sans-serif;
   font-size: 15px;
   font-weight: 400;
   line-height: 26px;
@@ -98,7 +98,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #0e2b3d;
   font-weight: normal;
   line-height: 1.2;
-  font-family: 'Heebo', sans-serif;
+  font-family: 'Cairo', sans-serif;
   letter-spacing: 0;
   margin: 0;
 }
@@ -212,7 +212,7 @@ a {
   -ms-transition: all 0.35s ease-in-out;
   -o-transition: all 0.35s ease-in-out;
   text-decoration: none;
-  font-family: 'Heebo', sans-serif;
+  font-family: 'Cairo', sans-serif;
   font-weight: 600;
 }
 
@@ -520,7 +520,7 @@ input {
 
 .btn {
   display: inline-block;
-  font-family: 'Heebo', sans-serif;
+  font-family: 'Cairo', sans-serif;
   font-weight: 600;
   line-height: 25px;
   text-transform: capitalize;
@@ -5305,7 +5305,7 @@ body,
   display: table-cell;
   line-height: 26px;
   padding: 0;
-  padding-left: 25px;
+  padding-right: 25px;
   vertical-align: top;
   padding-top: 0 !important;
 }
@@ -6694,6 +6694,14 @@ footer.demo .copyright {
 
 
 nav.navbar.bootsnav ul.nav > li > a{
-      font-size: 23px;
+      font-size: 18px;
+      font-weight: bold;
+
+}
+
+
+.valid {
+  font-size: 120px;
+  color: green;
 
 }

@@ -4,70 +4,47 @@ from django.db.models.signals import post_save , pre_save
 from random import choice
 from string import ascii_letters
 from ckeditor.fields import RichTextField
+from django.utils.translation import gettext_lazy as _
 # seed random number generator
 
 # Create your models here.
 
 STATUS = (
-    (0,"Draft"),
-    (1,"Publish")
+	(0,"مسودة"),
+	(1,"ينشر")
 )
 
 
 class Category(models.Model):
-	category_name = models.CharField(max_length=250 , blank=False , null=False)
-
+	category_name = models.CharField(verbose_name=_('إسم الفئة'),max_length=250 , blank=False , null=False)
+	class Meta:
+		verbose_name = _('ﺔﺌﻔﻟا')
+		verbose_name_plural = _('الفئات')
 	def __str__(self):
-		return category_name
+		return self.category_name
 
 
 
 class Post(models.Model):
-	title = models.CharField(max_length=250 , blank=False, null=False)
-	slug = models.SlugField(max_length=200, unique=True)
-	author = models.ForeignKey(User , on_delete=models.CASCADE , blank=False , null=False)
-	content =  RichTextField()
-	statut = models.IntegerField(choices=STATUS, default=0)
+	title = models.CharField(verbose_name=_('العنواة'),max_length=250 , blank=False, null=False)
+	image = models.ImageField(verbose_name=_('الصورة'),upload_to='blog/posts' ,  blank=True, null=True)
+	author = models.ForeignKey(User , on_delete=models.CASCADE , blank=False , null=False,verbose_name=_('الكاتب'))
+	description =  models.TextField(verbose_name=_('الشرح'),)
+	content =  RichTextFieldverbose_name=_('المحتوى'),()
+	statut = models.IntegerField(verbose_name=_('الحالة'),choices=STATUS, default=0)
 	updated_on = models.DateTimeField(auto_now= True)
-	category = models.ForeignKey(Category , on_delete=models.CASCADE , blank=False , null=False)
-	created_on = models.DateTimeField(auto_now_add=True)
+	category = models.ForeignKey(Category , on_delete=models.CASCADE , blank=False , null=False,verbose_name=_('الفئة'))
+	created_on = models.DateTimeField(verbose_name=_('Category ID'),auto_now_add=True)
 	
 	class Meta:
 		ordering = ['-created_on']
+
+	
+	class Meta:
+		verbose_name = _('مقال')
+		verbose_name_plural = _('مقالات')
 
 	def __str__(self):
 		return self.title
 
 
-
-def create_post_slug(instance , new_slug = None):
-	'''
-		This function generates a slug for the profile using the user name, lasname
-	'''
-	title = instance.title
-
-	value = choice(ascii_letters)
-	slug  = slugify(f'{title}{ascii_letters}')
-	
-	if new_slug is not None:
-		slug = new_slug
-	qs  = Post.objects.filter(slug = slug).order_by('-id')
-	exists = qs.exists()
-	if exists:
-		
-		value = choice(ascii_letters)
-		# generate a new slug using a random  int value
-		new_slug = f'{slug}{value}'
-		 
-		return create_post_slug(instance , new_slug=new_slug)
-
-	return slug
-
-def pre_save_post_slug_creator(sender , instance , **kwargs):
-	'''
-		This function saves the generated slug to the profile instance
-	'''
-	if not instance.slug:
-		instance.slug = create_profile_slug(instance)
-
-pre_save.connect(pre_save_post_slug_creator , sender=Post)
