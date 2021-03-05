@@ -16,16 +16,18 @@
                 <div class="row ">
                     <div class="col-lg-4 col-md-6 item">
                         <div class="f-item float-right text-right">
-                            <h4 class="widget-title">ابقى على تواصل</h4>
+                            <h4 class="widget-title">ابق على تواصل</h4>
                             <div class="address ">
                                 <ul>
                                     <li>
                                         <strong>العنوان:</strong>
-                                        حي 450 مسكن بئرخادم الجزائر
+                                        {{contact.adresse}}
                                     </li>
                                     <li>
                                         <strong>الإيميل:</strong>
-                                        <a href="mailto:info@validtheme.com">info@validtheme.com</a>
+                                        {{contact.first_email}}<br>
+                                        {{contact.secound_email}}
+
                                     </li>
                                 </ul>
                             </div>
@@ -37,13 +39,13 @@
                             <h4 class="widget-title">صفحاتنا</h4>
                             <ul>
                                 <li>
-                                    <a href="#">من نحن</a>
+                                    <a href="#about_us">من نحن</a>
                                 </li>
                                 <li>
-                                    <a href="#">مدونتنا</a>
+                                    <a href="{% url 'blog' %}">مدونتنا</a>
                                 </li>
                                 <li>
-                                    <a href="#">إتصل بنا</a>
+                                    <a href="#contact">إتصل بنا</a>
                                 </li>
                             </ul>
                         </div>
@@ -52,30 +54,30 @@
                     
                     <div class="col-lg-4 col-md-6 item ">
                         <div class="f-item about float-right text-right">
-                            <img src="{% static 'img/logo.jpg' %}" style="height: 70px; width: 70px" alt="Logo">
+                            <img src="{{content.logo.url}}" style="height: 70px; width: 70px" alt="Logo">
                             <p>
-                               من السهل حقيقة حياة العقل مع رؤية قد تحمل عشرة. أبرشية أي ثرثرة يمكن أن توجهها إلى السابق. ما يصل كما يقصد الأرملة..
+                               {{content.header_description}}
  
                             </p>
                             <div class="social ">
                                 <ul>
                                     <li>
-                                        <a href="#">
+                                        <a href="{{contact.facebook}}">
                                             <i class="fab fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="{{contact.twitter}}">
                                             <i class="fab fa-twitter"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
-                                            <i class="fab fa-linkedin-in"></i>
+                                        <a href="{{contact.youtube}}">
+                                            <i class="fab fa-youtube"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="{{contact.instagram}}">
                                             <i class="fab fa-instagram"></i>
                                         </a>
                                     </li>
@@ -91,7 +93,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>Copyright &copy;  2021. Designed by <a href="#">ValidThemes.com</a></p>
+                        <p>Copyright &copy;  2021. Designed by <a href="#">mulvice.org</a></p>
                     </div>
                 </div>
             </div>

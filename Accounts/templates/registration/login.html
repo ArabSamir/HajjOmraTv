@@ -3,8 +3,7 @@
 
 
 {% block body %}
-{% include 'base/header.html' %}    
-
+{% include 'base/header.html' with contact=contact  content=content  %}    
  <div class="container default-padding-top	">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
@@ -16,6 +15,7 @@
         </div>
 <div class="container default-padding-bottom">
 	
+	{{parameter}}
 	<div class="col-md-6 col-sm-10 col-md-offset-3 col-sm-offset-1 mx-auto text-right">
 
 		<form method="POST"> {% csrf_token %}
@@ -29,6 +29,6 @@
 	</div>
 </div>
 
-{% include 'base/footer.html' %}    
+{% include 'base/footer.html'  with content=content contact=contact %}    
     
 {% endblock body %}

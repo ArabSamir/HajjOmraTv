@@ -8,10 +8,10 @@
                 <div class="col-lg-6 info">
                     <ul>
                         <li>
-                            <i class="fas fa-map-marker-alt"></i> بئرخادم , الجزائر
+                            <i class="fas fa-map-marker-alt"></i> {{contact.adresse}}
                         </li>
                         <li>
-                            <i class="fas fa-envelope-open"></i> Info@gmail.com
+                            <i class="fas fa-envelope-open"></i> {{contact.first_email}}
                         </li>
                     </ul>
                 </div>
@@ -26,18 +26,23 @@
                     <div class="social">
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="{{contact.facebook}}">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{contact.twitter}}">
                                     <i class="fab fa-twitter"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <i class="fab fa-linkedin-in"></i>
+                                <a href="{{contact.instagram}}">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{contact.youtube}}">
+                                    <i class="fab fa-youtube"></i>
                                 </a>
                             </li>
                         </ul>
@@ -67,16 +72,16 @@
                     <!-- End Atribute Navigation -->
 
                     <!-- Start Header Navigation -->
-                    <div class="navbar-header float-right">
+                    <div class="navbar-header float-lg-right float-xl-right  ">
                         <button type="button" class="navbar-toggle " data-toggle="collapse" data-target="#navbar-menu">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="index.html">
-                            <img src="{% static 'img/logo.jpg' %}" class="logo {% if request.resolver_match.url_name == 'index' %} logo-display{% endif %}" style="width: 75px; height: 75px;" alt="Logo">
+                        <a class="navbar-brand" href="{% url 'index' %}">
+                            <img src="{{content.logo.url}}" class="logo {% if request.resolver_match.url_name == 'index' %} logo-display {% endif %}"  alt="Logo">
                             {% if request.resolver_match.url_name == 'index' %}
                                 
                             
-                            <img src="{% static 'img/logo.jpg' %}" class="logo logo-scrolled" style="width: 75px; height: 75px;" alt="Logo">
+                            <img src="{{content.logo.url}}" class="logo logo-scrolled"  alt="Logo">
                             {% endif %}
                         </a>
                     </div>
@@ -84,25 +89,53 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse float-left" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="dropdown">
-                            <a href="{% url 'login' %}"  >تسجيل الدخول</a>
+                            {% if request.user.is_authenticated %}
+                                <div class="navbar-header ">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                                        <img src="{{request.user.profile.image.url}}" class="profile_pic" alt="Logo">
+                                        </a>
 
-                        </li>
-                         <li class="dropdown">
-                            <a href="{% url 'signup' %}"  >سجل معنا</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown ">
+                                                <a href="{% url 'profile' %}"  class="text-right">الملف الشخصي</a>
+                                            </li>
+                                            <li class="dropdown ">
+                                                <a href="{% url 'change_password' %}"  class="text-right">تغيير كلمة السر</a>
+                                            </li>
+                                            <li class="dropdown ">
+                                                <a href="{% url 'logout' %}"  class="text-right">تسجيل الخروج</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                </div>
+                            {% else %}
+                                    
+                                     <li class="dropdown ">
+                                        <a href="{% url 'signup' %}" class="sign_up"  >سجل معنا <i class="fa fa-user"></i></a>
 
-                        </li> 
-                        <li>
-                            <a href="contact.html">اتصل بنا</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="{% url 'blog' %}">المدونة</a>
+                                    </li> 
+                                    <li class="dropdown">
+                                        <a href="{% url 'login' %}"  >تسجيل الدخول</a>
+
+                                    </li>
                             
-                        </li>
-                        <li class="dropdown">
-                            <a href="{% url 'index' %}" >الرئيسية</a>
-                            
-                        </li>
+                            {% endif %}
+                            <li>
+                                <a href="#contact">اتصل بنا</a>
+                            </li>
+                            <li>
+                                <a href="#about_us">من نحن</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{% url 'blog' %}">المدونة</a>
+                                
+                            </li>
+                            <li class="dropdown">
+                                <a href="{% url 'index' %}" >الرئيسية</a>
+                                
+                            </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>
@@ -123,7 +156,7 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner carousel-zoom">
                 <div class="carousel-item active">
-                    <div class="slider-thumb bg-cover" style="background-image: url({% static 'img/makkah3.jpg' %});"></div>
+                    <div class="slider-thumb bg-cover" style="background-image: url({{content.header_image.url}});"></div>
                     <div class="box-table">
                         <div class="box-cell shadow dark">
                             <div class="container">
@@ -131,12 +164,12 @@
 
                                     <div class="col-lg-8 offset-lg-2">
                                         <div class="content">
-                                            <h2 data-animation="animated slideInRight">خلق أفضل <strong>حلول تكنولوجيا المعلومات</strong></h2>
+                                            <h2 data-animation="animated slideInRight">تعرف على الحج و العمرة وكن أنت المرشد</h2>
                                              <p  data-animation="animated slideInLeft">
-                                                ابجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ معنى كلمنابجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ معنى كلمنابجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ معنى كلمن 
+                                                موقع تعليمي تثقيفي متخصص في كل ما يتعلق بالحج و العمرة ابتداء من الجانب الفقهي الديني الى كل مايتعلق بالجانب التنظيمي الاداري موجه الى كل من له اهتمام بالحج و العمرة من معتمر , حاج , مرافق و مرشد ووكالات سياحية
                                             </p>
-                                            <a class="popup-youtube relative video-play-button" href="https://www.youtube.com/watch?v=owhuBrGIOsE">
-                                                <i class="fa fa-play"></i>
+                                            <a class="btn btn-info" style="color: #000;"  href="https://www.youtube.com/watch?v=owhuBrGIOsE">
+                                                إنخرط معنا
                                             </a>
                                         </div>
                                     </div>
@@ -145,20 +178,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="slider-thumb bg-cover" style="background-image: url({% static 'img/makkah1.jpg' %});"></div>
+                <div class="carousel-item ">
+                    <div class="slider-thumb bg-cover" style="background-image: url({{content.header_image.url}});"></div>
                     <div class="box-table">
                         <div class="box-cell shadow dark">
                             <div class="container">
                                 <div class="row">
+
                                     <div class="col-lg-8 offset-lg-2">
                                         <div class="content">
-                                            <h2 data-animation="animated slideInRight">لق أفضل <strong>حلول تكنولوجيا المعلومات</strong></h2>
-                                            <p  data-animation="animated slideInLeft">
-                                               ابجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ معنى كلمنابجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ معنى كلمنابجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ معنى كلمن . 
+                                            <h2 data-animation="animated slideInRight">تعرف على الحج و العمرة وكن أنت المرشد</h2>
+                                             <p  data-animation="animated slideInLeft">
+                                                موقع تعليمي تثقيفي متخصص في كل ما يتعلق بالحج و العمرة ابتداء من الجانب الفقهي الديني الى كل مايتعلق بالجانب التنظيمي الاداري موجه الى كل من له اهتمام بالحج و العمرة من معتمر , حاج , مرافق و مرشد ووكالات سياحية
                                             </p>
-                                            <a class="popup-youtube relative video-play-button" href="https://www.youtube.com/watch?v=owhuBrGIOsE">
-                                                <i class="fa fa-play"></i>
+                                            <a class="btn btn-info" style="color: #000;"  href="https://www.youtube.com/watch?v=owhuBrGIOsE">
+                                                إنخرط معنا
                                             </a>
                                         </div>
                                     </div>
@@ -167,6 +201,8 @@
                         </div>
                     </div>
                 </div>
+
+                
             </div>
             <!-- End Wrapper for slides -->
 

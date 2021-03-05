@@ -1,6 +1,6 @@
 from django.db import models
 from Accounts.models import User
-from django.db.models.signals import post_save , pre_save
+from django.db.models.signals import post_save , pre_save ,post_delete
 from random import choice
 from string import ascii_letters
 from ckeditor.fields import RichTextField
@@ -24,23 +24,20 @@ class Category(models.Model):
 		return self.category_name
 
 
-
 class Post(models.Model):
 	title = models.CharField(verbose_name=_('العنواة'),max_length=250 , blank=False, null=False)
 	image = models.ImageField(verbose_name=_('الصورة'),upload_to='blog/posts' ,  blank=True, null=True)
 	author = models.ForeignKey(User , on_delete=models.CASCADE , blank=False , null=False,verbose_name=_('الكاتب'))
 	description =  models.TextField(verbose_name=_('الشرح'),)
-	content =  RichTextFieldverbose_name=_('المحتوى'),()
+	content =  RichTextField(verbose_name=_('المحتوى'),)
 	statut = models.IntegerField(verbose_name=_('الحالة'),choices=STATUS, default=0)
 	updated_on = models.DateTimeField(auto_now= True)
 	category = models.ForeignKey(Category , on_delete=models.CASCADE , blank=False , null=False,verbose_name=_('الفئة'))
-	created_on = models.DateTimeField(verbose_name=_('Category ID'),auto_now_add=True)
+	created_on = models.DateTimeField(verbose_name=_('تاريخ الإنشاء'),auto_now_add=True)
+	nb_comments = models.IntegerField(verbose_name=_('عدد التعليقات'), default=0)
 	
 	class Meta:
 		ordering = ['-created_on']
-
-	
-	class Meta:
 		verbose_name = _('مقال')
 		verbose_name_plural = _('مقالات')
 
@@ -48,3 +45,32 @@ class Post(models.Model):
 		return self.title
 
 
+
+class Comment(models.Model):
+	post = models.ForeignKey(Post , on_delete=models.CASCADE , blank=False , null=False,verbose_name=_('المقال'))
+	creator = models.ForeignKey(User , on_delete=models.CASCADE , blank=False , null=False,verbose_name=_('المعلق'))
+	text = models.TextField(verbose_name=_('تعلسق'))
+	created_on = models.DateTimeField(verbose_name=_('تاريخ الإنشاء'),auto_now_add=True)
+	
+	class Meta:
+		ordering = ['-created_on']
+		verbose_name = _('التعليق')
+		verbose_name_plural = _('التعليقات')
+		
+		
+	def __str__(self):
+		return self.text
+
+def update_comments_nb_more(sender , instance , **kwargs):
+	if 'created' in kwargs:
+		post = instance.post
+		post.nb_comments += 1
+		post.save()
+
+post_save.connect(update_comments_nb_more , sender=Comment)
+
+def update_comments_nb_less(sender , instance , **kwargs):
+	post = instance.post
+	post.nb_comments -= 1
+	post.save()
+post_delete.connect(update_comments_nb_less , sender=Comment)

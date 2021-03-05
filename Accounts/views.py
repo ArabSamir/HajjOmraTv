@@ -73,3 +73,29 @@ def change_password(request):
 		return render(request , template_name , args)
 	
 
+def profile(request):
+	template_name = 'registration/profile.html'
+	user = get_object_or_404(User , pk=request.user.pk)
+	profile = user.profile
+	profile_form = ProfileUpdateForm(request.POST or None , request.FILES or None, instance=profile)
+	user_form = UserUpdateForm(request.POST or None ,instance=user)
+
+	if request.method == "POST":
+		print(request.POST.get('birth_date'))
+		if profile_form.is_valid() and user_form.is_valid():
+			try:
+				profile_form.save()
+				user_form.save()
+				messages.success(request , f'تم التعديل بنجاح')
+				return redirect('profile')
+			except Exception as e:
+				messages.error(request , f'لم يتم إجراء تغييرات')
+				return redirect('profile')
+
+					
+	args = {
+		'profile_form':profile_form,
+		'user_form':user_form,
+	}
+
+	return render(request , template_name , args)
