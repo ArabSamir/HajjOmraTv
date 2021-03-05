@@ -11,8 +11,18 @@ from django.contrib.auth.views import ( LoginView,
                                         )
 from django.conf                    import settings
 from Accounts.models import Contact , Content
-contact = Contact.objects.all()[0]
-content = Content.objects.all()[0]
+
+try:
+    contact = Contact.objects.all()[0]
+    content = Content.objects.all()[0]
+    videos = Video.objects.all()
+    posts = Post.objects.all()[:3]
+    
+except Exception as e:
+    contact = []
+    content = []
+    videos = []
+    posts = []
 args = {
     'contact':contact,
     'content':content,
