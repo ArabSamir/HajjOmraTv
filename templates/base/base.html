@@ -30,6 +30,8 @@
     <link href="{% static 'css/bootsnav.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+    
     {% block link %}
         
     {% endblock link %}
@@ -73,6 +75,16 @@
     <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
     <script src="{% static 'js/bootsnav.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+
+
+  <script>
+    AOS.init({
+        duration: 800,
+    });
+    
+
+  </script>
     {% block script %}
         
     {% endblock script %}

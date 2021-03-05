@@ -12,10 +12,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-					<h2>اﻟﻤﺪﻭﻧﺔ</h2>
+					<h2>المدونة</h2>
 					<ul class="breadcrumb">
-						<li class="active">اﻟﻤﺪﻭﻧﺔ  </li>
-						<li ><a href="#">االرئيسية  <i class="fas fa-home"></i></a></li>
+						<li class="active">المدونة</li>
+						<li ><a href="{% url 'index' %}">االرئيسية  <i class="fas fa-home"></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -30,67 +30,68 @@
 		<div class="container">
 			<div class="blog-items">
 				<div class="row">
-					<div class="blog-content col-lg-8 col-md-12">
+					<div class="blog-content col-lg-8 col-md-12" data-aos="fade-up">
 						
 
-						<div class="blog-item-box float-right text-right">
-							
-							{% for post in posts %}
-								
-
-
-								<!-- Single Item -->
-								<div class="single-item">
-									<div class="item wow fadeInUp">
-												{% if post.image %}
-										<div class="thumb">
-											<a href="blog-single-with-sidebar.html">
-												<img src="{{post.image.url}}" alt="Thumb">
-											</a>
-										</div>
-												{% endif %}
-										<div class="info  text-right">
-											<div class="meta">
-												<ul>
-													<li><i class="fas fa-calendar-alt"></i>{{post.created_on}}</li>
-													<!-- <li><a href="#"><i class="fas fa-comments"></i> 36 Comments</a></li> -->
-												</ul>
+							{% if posts %}
+								<div class="blog-item-box float-right text-right">
+								    {% for post in posts %}
+										<!-- Single Item -->
+										<div class="single-item " data-aos="fade-up">
+											<div class="item wow fadeInUp">
+														{% if post.image %}
+												<div class="thumb">
+													<a href="{% url 'post_detail' pk=post.pk %}">
+														<img src="{{post.image.url}}" alt="Thumb">
+													</a>
+												</div>
+														{% endif %}
+												<div class="info  text-right">
+													<div class="meta">
+														<ul>
+															<li><i class="fas fa-calendar-alt"></i>{{post.created_on}}</li>
+															<!-- <li><a href="#"><i class="fas fa-comments"></i> 36 Comments</a></li> -->
+														</ul>
+													</div>
+													<h3>
+														<a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a>
+													</h3>
+													<p> {{post.description}}</p>
+													<div class="bottom  text-right">
+														
+														<a class="btn circle btn-theme effect btn-md" href="{% url 'post_detail' pk=post.pk %}">إقرأ المزيد</a>
+													</div>
+												</div>
 											</div>
-											<h3>
-												<a href="blog-single-with-sidebar.html">{{post.title}}</a>
-											</h3>
-											<p> {{post.description}}</p>
-											<div class="bottom  text-right">
-												
-												<a class="btn circle btn-theme effect btn-md" href="{% url 'post_detail' pk=post.pk %}">إقرأ المزيد</a>
-											</div>
 										</div>
-									</div>
+										<!-- End Single Item -->
+									{% endfor %} 
 								</div>
-								<!-- End Single Item -->
-
-								{% endfor %} 
-						   
-						</div>
+					   		{% else %}
+  								<div class="alert alert-danger text-right" role="alert">لم يتم العثور على أي مقال</div>
+							{% endif %}
 						
-						<!-- Pagination -->
-						<div class="row">
-							<div class="col-md-12 pagi-area text-center">
-								<nav aria-label="navigation">
-									<ul class="pagination">
-										{% if page_obj.has_previous %}
-											<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-double-left"></i></a></li>
-										<li class="page-item "><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
-								        {% endif %}
-										<li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
-			        					{% if page_obj.has_next %}
-											<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
-											<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-double-right"></i></a></li>
-										{% endif %}
-									</ul>
-								</nav>
+						{% if posts %}
+						    <!-- Pagination -->
+							<div class="row">
+								<div class="col-md-12 pagi-area text-center">
+									<nav aria-label="navigation">
+										<ul class="pagination">
+											{% if page_obj.has_previous %}
+												<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-double-left"></i></a></li>
+											<li class="page-item "><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+									        {% endif %}
+											<li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+				        					{% if page_obj.has_next %}
+												<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+												<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-double-right"></i></a></li>
+											{% endif %}
+										</ul>
+									</nav>
+								</div>
 							</div>
-						</div>
+							<!-- Pagination -->
+						{% endif %}
 					</div>
 					
 
@@ -99,24 +100,24 @@
 
 
 					<!-- Start Sidebar -->
-					<div class="sidebar wow fadeInLeft col-lg-4 col-md-12">
+					<div class="sidebar wow  col-lg-4 col-md-12"  >
 						<aside>
-							<div class="sidebar-item search">
+							<div class="sidebar-item search" data-aos="fade-left">
 								<div class="sidebar-info">
-									<form>
-										<input type="text" name="text" class="form-control">
+									<form method="GET">
+										<input type="text" name="keyword" class="form-control" value="{{request.GET.keyword}}">
 										<button type="submit"><i class="fas fa-search"></i></button>
 									</form>
 								</div>
 							</div>
-							<div class="sidebar-item recent-post float-right text-right">
+							<div class="sidebar-item recent-post float-right text-right" data-aos="fade-left">
 								<div class="title ">
 									<h4>آخر المقالات</h4>
 								</div>
 								<ul>
 									{% for post in last_posts %}
 										
-									<li>
+									<li class="float-right">
 										<div class="info">
 											<a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a>
 											<div class="meta-title">
@@ -136,6 +137,51 @@
 									{% endfor %}
 								</ul>
 							</div>
+							<div class="sidebar-item category float-right text-right" data-aos="fade-left">
+                                <div class="title ">
+                                    <h4 class="text-right">قائمة المقالات</h4>
+                                </div>
+                                <div class="row sidebar-info float-right ">
+                                    <ul class="">
+                                    	{% for category in categories %}
+	                                       <li >
+	                                            <a href="/blog/?category={{category.id}}" class="float-right text-right"><span>({{category.nb_posts}})</span> {{category.category_name}}</a>
+	                                        </li>
+                                    		
+                                    	{% endfor %}
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar-item social-sidebar float-right text-right" data-aos="fade-left">
+                                <div class="title">
+                                    <h4>تابعونا</h4>
+                                </div>
+                                <div class="sidebar-info float-right">
+                                    <ul>
+                                        <li class="facebook">
+                                            <a href="{{contact.facebook}}">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li class="instagram">
+                                            <a href="{{contact.instagram}}">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li class="g-plus">
+                                            <a href="{{contact.youtube}}">
+                                                <i class="fab fa-youtube"></i>
+                                            </a>
+                                        </li>
+                                        <li class="twitter">
+                                            <a href="{{contact.twitter}}">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
 						</aside>
 					</div>
 					<!-- End Start Sidebar -->

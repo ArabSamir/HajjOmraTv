@@ -15,14 +15,13 @@ from Accounts.models import Contact , Content
 try:
     contact = Contact.objects.all()[0]
     content = Content.objects.all()[0]
-    videos = Video.objects.all()
-    posts = Post.objects.all()[:3]
     
 except Exception as e:
+    print(e)
     contact = []
     content = []
-    videos = []
-    posts = []
+
+
 args = {
     'contact':contact,
     'content':content,

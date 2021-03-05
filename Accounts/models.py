@@ -71,7 +71,7 @@ class User(AbstractBaseUser ,PermissionsMixin):
 
 	def get_full_name(self):
 	# The user is identified by their email address
-		return self.email
+		return f'{self.name} {self.lastname}'
 
 
 	def get_short_name(self):
@@ -148,6 +148,7 @@ class Contact(models.Model) :
 	class Meta:
 		verbose_name = _('التواصل')
 		verbose_name_plural = _('إعدادات معلومات الاتصال')
+	
 	def __str__(self):
 		return "الإعدادات"
 
@@ -187,3 +188,7 @@ class Video (models.Model):
 	class Meta:
 		verbose_name = _('فيديو')
 		verbose_name_plural = _('الفيديوهات')
+
+
+	def __str__(self):
+		return self.title

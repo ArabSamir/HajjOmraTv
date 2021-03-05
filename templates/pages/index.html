@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block link %}
-    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
 
 {% endblock link %}
 
@@ -111,9 +110,9 @@
                             <!-- Single Item -->
                             <div class="pf-item col-lg-4 mt-3">
                                 <div class="item">
-                                    <div class="thumb">
+                                    <div class="thumb video">
                                         <img src="{{video.image.url}}" alt="Thumb">
-                                        <a href="{{video.url}}" class="popup-youtube"><i class="fa fa-play"></i></a>
+                                        <a href="{{video.url}}"  class="popup-youtube"><i class="fa fa-play"></i></a>
                                     </div>
                                     <div class="info">
                                         <div class="tags">
@@ -129,6 +128,8 @@
                             </div>
                             <!-- End Single Item -->
                         {% endfor %}
+
+                       
                        
 
                     </div>
@@ -291,22 +292,30 @@
 
 {% block script %}
     <script type="text/javascript">
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+        $(document).ready(function() {
+           $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+                disableOn: 700,
+                type: 'iframe',
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                preloader: false,
 
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+                fixedContentPos: false
+            });
+
         });
-    });
-});
     </script>
-    <script src="{% static 'js/aos.js' %}"></script>
+    
+    <script type="text/javascript">
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
 
-
-  <script>
-    AOS.init({
-        duration: 800,
-    });
-  </script>
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+   
 {% endblock script %}

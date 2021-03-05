@@ -123,10 +123,10 @@
                             
                             {% endif %}
                             <li>
-                                <a href="#contact">اتصل بنا</a>
+                                <a href="{% if request.resolver_match.url_name == 'index' %}#contact{% else %}{% url 'index' %}#contact{% endif %}">اتصل بنا</a>
                             </li>
                             <li>
-                                <a href="#about_us">من نحن</a>
+                                <a href="{% if request.resolver_match.url_name == 'index' %}#about_us{% else %}{% url 'index' %}#about_us{% endif %}">من نحن</a>
                             </li>
                             <li class="dropdown">
                                 <a href="{% url 'blog' %}">المدونة</a>

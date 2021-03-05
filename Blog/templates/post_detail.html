@@ -10,208 +10,261 @@
  <div class="breadcrumb-area text-center shadow dark bg-fixed text-light" style="background-image: url({{post.image.url}});">
   <div class="container">
    <div class="row">
-    <div class="col-lg-12">
-     <h2><b>{{post.title}}</b></h2>
-     
-    </div>
+	<div class="col-lg-12">
+	 <h2><b>{{post.title}}</b></h2>
+	 
+	</div>
    </div>
   </div>
  </div>
  <!-- End Breadcrumb -->
 
-    <!-- Start Blog
-    ============================================= -->
-    <div class="blog-area single full-blog right-sidebar full-blog default-padding">
-        <div class="container">
-            <div class="blog-items">
-                <div class="row">
-                    <div class="blog-content wow fadeInUp col-lg-8 col-md-12">
-                    	{% for message in messages %}
-          							{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
-          								<div class="alert alert-success" role="alert">{{message}}</div>
-          							{% else %}
-          								<div class="alert alert-danger" role="alert">{{message}}</div>
-          							    
-          							{% endif %}
-          						{% endfor %}
-                     <div class="row">
-                      
-                         <div class="item float-right text-right">
+	<!-- Start Blog
+	============================================= -->
+	<div class="blog-area single full-blog right-sidebar full-blog default-padding">
+		<div class="container">
+			<div class="blog-items">
+				<div class="row">
+					<div class="blog-content wow  col-lg-8 col-md-12" data-aos="fade-up">
+						{% for message in messages %}
+									{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
+										<div class="alert alert-success" role="alert">{{message}}</div>
+									{% else %}
+										<div class="alert alert-danger" role="alert">{{message}}</div>
+										
+									{% endif %}
+								{% endfor %}
+					 <div class="row">
+					  
+						 <div class="item float-right text-right">
 
-                             <div class="blog-item-box">
-                                 <!-- Start Post Thumb -->
-                                 <div class="thumb">
-                                  {% if post.image %}
-                                      
-                                     <img src="{{post.image.url}}" alt="Thumb">
-                                  
-                                  {% endif %}
-                                 </div>
-                                 <!-- Start Post Thumb -->
+							 <div class="blog-item-box">
+								 <!-- Start Post Thumb -->
+								 <div class="thumb">
+								  {% if post.image %}
+									  
+									 <img src="{{post.image.url}}" alt="Thumb">
+								  
+								  {% endif %}
+								 </div>
+								 <!-- Start Post Thumb -->
 
-                                 <div class="info">
-                                     <div class="meta">
-                                         <ul>
-                                             <li ><i class="fas fa-calendar-alt"></i>{{post.created_on}}</li>
-                                             <!-- <li><a href="#"><i class="fas fa-comments"></i> 36 Comments</a></li> -->
-                                         </ul>
-                                     </div>
-                                     <h3>
-                                         {{post.Title}}
-                                     </h3>
-                                     
-                                     {{post.content|safe}}
-                                 </div>
-                             </div>
-                         </div>
+								 <div class="info">
+									 <div class="meta">
+										 <ul>
+											 <li ><i class="fas fa-calendar-alt"></i>{{post.created_on}}</li>
+											 <!-- <li><a href="#"><i class="fas fa-comments"></i> 36 Comments</a></li> -->
+										 </ul>
+									 </div>
+									 <h3>
+										 {{post.Title}}
+									 </h3>
+									 
+									 {{post.content|safe}}
+								 </div>
+							 </div>
+						 </div>
 
-                     </div>
-                        <!-- Start Blog Comment -->
-                        <div class="row ">
-                         
-                         <div class="blog-comments default-padding ">
-                             <div class="comments-area ">
-                                 <div class="comments-title ">
-                                     <h4 class="text-right">{{nb_comments}} التعليقات    </h4>
-                                      <div class="comments-list">
-                                        <div class="commen-item">
-                                            <div class="avatar">
-                                                <img src="{% static 'img/teams/1.jpg' %}" alt="Author">
-                                            </div>
-                                            <div class="content">
-                                                <div class="title">
-                                                    <h5>Jonathom Doe</h5>
-                                                    <span>28 Aug, 2020</span>
-                                                </div>
-                                                <p class="">
-                                                    Delivered ye sportsmen zealously arranging frankness estimable as. Nay any article enabled musical shyness yet sixteen yet blushes. Entire its the did figure wonder off. 
-                                                </p>
-                                                
-                                            </div>
+					 </div>
+						<!-- Start Blog Comment -->
+						<div class="row ">
+						 
+						 <div class="blog-comments default-padding ">
+							 <div class="comments-area ">
+								 <div class="comments-title ">
+
+							 		{% if comments %}
+										<h4 class="text-right">{{nb_comments}} التعليقات    </h4>
+									{% else %}
+									 	<h4 class="text-right">لايوجد أي تعليق بعد </h4>
+										    
+							 		{% endif %}
+									  <div class="comments-list float-right text-right">
+								 		{% if comments %}
+								 	    
+								 	
+											
+											{% for comment in comments %}
+												
+											<div class="commen-item " >
+												<div class="avatar float-right">
+													<img src="{{comment.creator.profile.image.url}}" style="    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 50%;" alt="Author">
+												</div>
+												<div class="content text-right " >
+													<div class="title  float-right text-right">
+														<span >{{comment.created_on}}</span>
+														<h5 class="float-right text-right">{{comment.creator.get_full_name}}</h5>
+													</div>
+													<p class="text-right" >
+														{{comment.text}} 
+													</p>
+													
+												</div>
+											
+
+											</div>
+											{% endfor %}
+											
+								 		{% endif %}
+										
+									</div>
+								 </div>
+								 {% if request.user.is_authenticated %}
+									 
+								 
+									 <div class="comments-form float-right">
+										 <div class="title float-right">
+											 <h4>اترك تعليقا</h4>
+										 </div>
+										 <form method="POST" class="contact-comments float-right">{% csrf_token %}
+											 <div class="row">
+												 
+												 <div class="col-md-12 ">
+													 <div class="form-group comments float-right">
+														 {{form.text}}
+														 {% if form.errors %}
+														   <div class="alert alert-danger" role="alert">{{form.errors.text}}</div>
+														 {% endif %}
+
+													 </div>
+													 <div class="form-group full-width submit float-right">
+														 <button type="submit">
+															 علق
+														 </button>
+													 </div>
+												 </div>
+											 </div>
+										 </form>
+									 </div>
+								 {% endif %}
+
+							 </div>
+						 </div>
+						</div>
+					 <!-- End Comments Form -->
+					</div>
+				   <!-- Start Sidebar -->
+					 <div class="sidebar wow fadeInLeft ml-auto col-lg-4 col-md-12">
+							<aside>
+							<div class="sidebar-item search" data-aos="fade-left">
+								<div class="sidebar-info">
+									 <form>
+										  <input type="text" name="text" class="form-control">
+										  <button type="submit"><i class="fas fa-search"></i></button>
+									 </form>
+								</div>
+							</div>
+							<div class="sidebar-item recent-post float-right text-right" data-aos="fade-left">
+								<div class="title ">
+									<h4>ﺁﺧﺮ المقالات</h4>
+								</div>
+								<ul>
+								 {% for post in last_posts %}
+								  
+									 <li class="float-right">
+									  <div class="info ">
+										   <a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a>
+										   <div class="meta-title">
+												<span class="post-date"><i class="fas fa-calendar-alt"></i>{{post.created_on}}</span>
+										   </div>
+									  </div>
+									  <div class="thumb">
+									   <a href="{% url 'post_detail' pk=post.pk %}">
+										{% if post.image %}
+
+										 <img src="{{post.image.url}}" alt="Thumb">
+										{% endif %}
+									   </a>
+									  </div>
+									 </li>
+								 
+								 {% endfor %}
+								</ul>
+							</div>
+							<div class="sidebar-item category float-right text-right" data-aos="fade-left">
+                                <div class="title ">
+                                    <h4 class="text-right">قائمة المقالات</h4>
+                                </div>
+                                <div class="row sidebar-info float-right ">
+                                    <ul class="">
+                                    	{% for category in categories %}
+	                                       <li >
+	                                            <a href="/blog/?category={{category.id}}" class="float-right text-right"><span>({{category.nb_posts}})</span> {{category.category_name}}</a>
+	                                        </li>
+                                    		
+                                    	{% endfor %}
                                         
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="sidebar-item recent-post float-right text-right" data-aos="fade-left">
+								<div class="title ">
+									<h4>مقالات ذات صلة</h4>
+								</div>
+								<ul>
+								 {% for post in related_posts %}
+								  
+									 <li class="float-right">
+									  <div class="info ">
+										   <a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a>
+										   <div class="meta-title">
+												<span class="post-date"><i class="fas fa-calendar-alt"></i>{{post.created_on}}</span>
+										   </div>
+									  </div>
+									  <div class="thumb">
+									   <a href="{% url 'post_detail' pk=post.pk %}">
+										{% if post.image %}
 
-                                        </div>
-                                        <div class="commen-item">
-                                            <div class="avatar">
-                                                <img src="{% static 'img/teams/1.jpg' %}" alt="Author">
-                                            </div>
-                                            <div class="content">
-                                                <div class="title">
-                                                    <h5>Jonathom Doe</h5>
-                                                    <span>28 Aug, 2020</span>
-                                                </div>
-                                                <p class="">
-                                                    Delivered 
-                                                </p>
-                                                
-                                            </div>
-                                        
+										 <img src="{{post.image.url}}" alt="Thumb">
+										{% endif %}
+									   </a>
+									  </div>
+									 </li>
+								 
+								 {% endfor %}
+								</ul>
+							</div>
+							<div class="sidebar-item social-sidebar float-right text-right" data-aos="fade-left">
+                                <div class="title">
+                                    <h4>تابعونا</h4>
+                                </div>
+                                <div class="sidebar-info float-right">
+                                    <ul>
+                                        <li class="facebook">
+                                            <a href="{{contact.facebook}}">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li class="instagram">
+                                            <a href="{{contact.instagram}}">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li class="g-plus">
+                                            <a href="{{contact.youtube}}">
+                                                <i class="fab fa-youtube"></i>
+                                            </a>
+                                        </li>
+                                        <li class="twitter">
+                                            <a href="{{contact.twitter}}">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+							</aside>
+					 </div>
+	 				<!-- End Start Sidebar -->
 
-                                        </div>
-                                        
-                                        <div class="commen-item">
-                                            <div class="avatar">
-                                                <img src="{% static 'img/teams/1.jpg' %}" alt="Author">
-                                            </div>
-                                            <div class="content">
-                                                <div class="title">
-                                                    <h5>Jonathom Doe</h5>
-                                                    <span>28 Aug, 2020</span>
-                                                </div>
-                                                <p class="">
-                                                    Delivered ye sportsmen zealously arranging frankness estimable as. Nay any article enabled musical shyness yet sixteen yet blushes. Entire its the did figure wonder off. 
-                                                </p>
-                                                
-                                            </div>
-                                        
-
-                                        </div>
-                                        
-                                    </div>
-                                 </div>
-                                 {% if request.user.is_authenticated %}
-                                     
-                                 
-                                     <div class="comments-form float-right">
-                                         <div class="title float-right">
-                                             <h4>اترك تعليقا</h4>
-                                         </div>
-                                         <form method="POST" class="contact-comments float-right">{% csrf_token %}
-                                             <div class="row">
-                                                 
-                                                 <div class="col-md-12 ">
-                                                     <div class="form-group comments float-right">
-                                                         {{form.text}}
-                                                         {% if form.errors %}
-                                                           <div class="alert alert-danger" role="alert">{{form.errors.text}}</div>
-                                                         {% endif %}
-
-                                                     </div>
-                                                     <div class="form-group full-width submit float-right">
-                                                         <button type="submit">
-                                                             علق
-                                                         </button>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </form>
-                                     </div>
-                                 {% endif %}
-
-                             </div>
-                         </div>
-                        </div>
-                     <!-- End Comments Form -->
-                    </div>
-                   <!-- Start Sidebar -->
-     <div class="sidebar wow fadeInLeft ml-auto col-lg-4 col-md-12">
-      <aside>
-       <div class="sidebar-item search">
-        <div class="sidebar-info">
-         <form>
-          <input type="text" name="text" class="form-control">
-          <button type="submit"><i class="fas fa-search"></i></button>
-         </form>
-        </div>
-       </div>
-       <div class="sidebar-item recent-post float-right text-right">
-        <div class="title ">
-         <h4>ﺁﺧﺮ اﻟﻤﻘﺎﻻﺕ</h4>
-        </div>
-        <ul>
-         {% for post in last_posts %}
-          
-         <li class="float-right">
-          <div class="info ">
-           <a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a>
-           <div class="meta-title">
-            <span class="post-date"><i class="fas fa-calendar-alt"></i>{{post.created_on}}</span>
-           </div>
-          </div>
-          <div class="thumb">
-           <a href="{% url 'post_detail' pk=post.pk %}">
-            {% if post.image %}
-
-             <img src="{{post.image.url}}" alt="Thumb">
-            {% endif %}
-           </a>
-          </div>
-         </li>
-         
-         {% endfor %}
-        </ul>
-       </div>
-      </aside>
-     </div>
-     <!-- End Start Sidebar -->
-
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Blog -->
+				   
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Blog -->
  
 
-    {% include 'base/footer.html'  with content=content contact=contact %}
+	{% include 'base/footer.html'  with content=content contact=contact %}
 {% endblock body %}
