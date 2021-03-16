@@ -3,7 +3,7 @@ from Accounts.models import User
 from django.db.models.signals import post_save , pre_save ,post_delete
 from random import choice
 from string import ascii_letters
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.translation import gettext_lazy as _
 # seed random number generator
 
@@ -18,6 +18,11 @@ STATUS = (
 class Category(models.Model):
 	category_name = models.CharField(verbose_name=_('إسم الفئة'),max_length=250 , blank=False , null=False)
 	nb_posts = models.IntegerField(verbose_name=_('عدد المقالات'), default=0)
+
+	@property
+	def nb_posts_(pk):
+		cat = Category.objects.filter(pk=pk)
+		return cat.count()
 	class Meta:
 		verbose_name = _('ﺔﺌﻔﻟا')
 		verbose_name_plural = _('الفئات')
@@ -30,7 +35,7 @@ class Post(models.Model):
 	image = models.ImageField(verbose_name=_('الصورة'),upload_to='blog/posts' ,  blank=True, null=True)
 	author = models.ForeignKey(User , on_delete=models.CASCADE , blank=False , null=False,verbose_name=_('الكاتب'))
 	description =  models.TextField(verbose_name=_('الشرح'),)
-	content =  RichTextField(verbose_name=_('المحتوى'),)
+	content =  RichTextUploadingField(verbose_name=_('المحتوى'),)
 	statut = models.IntegerField(verbose_name=_('الحالة'),choices=STATUS, default=0)
 	updated_on = models.DateTimeField(auto_now= True)
 	category = models.ForeignKey(Category , on_delete=models.CASCADE , blank=False , null=False,verbose_name=_('الفئة'))

@@ -16,9 +16,9 @@
         <div class="container">
             {% for message in messages %}
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
-                    <div class="alert alert-success" role="alert">{{message}}</div>
+                    <div class="alert alert-success text-right" role="alert">{{message}}</div>
                 {% else %}
-                    <div class="alert alert-danger" role="alert">{{message}}</div>
+                    <div class="alert alert-danger text-right" role="alert">{{message}}</div>
                     
                 {% endif %}
             {% endfor %}
@@ -161,7 +161,7 @@
                     {% for post in posts %}
                         
                     <!-- Single Item -->
-                    <div class="single-item col-lg-4">
+                    <div class="single-item col-lg-4 ">
                         <div class="item">
                             <div class="thumb">
                                 <img src="{{post.image.url}}" alt="Thumb">
@@ -177,7 +177,7 @@
                                 <h4 class="text-right">
                                     <a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a>
                                 </h4>
-                                <p class="text-right">
+                                <p class="text-right test">
                                     {{post.description}} 
                                 </p>
                                 <a class="btn-more" href="{% url 'blog' %}">اقرأ أكثر <i class="fas fa-long-arrow-alt-right"></i></a>

@@ -99,6 +99,7 @@
                                         <ul class="dropdown-menu">
                                             <li class="dropdown ">
                                                 <a href="{% url 'profile' %}"  class="text-right">الملف الشخصي</a>
+                                                <a href="{% url 'my_trainings' %}"  class="text-right">دوراتي</a>
                                             </li>
                                             <li class="dropdown ">
                                                 <a href="{% url 'change_password' %}"  class="text-right">تغيير كلمة السر</a>
@@ -127,6 +128,10 @@
                             </li>
                             <li>
                                 <a href="{% if request.resolver_match.url_name == 'index' %}#about_us{% else %}{% url 'index' %}#about_us{% endif %}">من نحن</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{% url 'trainings' %}">الدورات</a>
+                                
                             </li>
                             <li class="dropdown">
                                 <a href="{% url 'blog' %}">المدونة</a>

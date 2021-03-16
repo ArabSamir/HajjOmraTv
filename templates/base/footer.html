@@ -39,13 +39,13 @@
                             <h4 class="widget-title">صفحاتنا</h4>
                             <ul>
                                 <li>
-                                    <a href="#about_us">من نحن</a>
-                                </li>
-                                <li>
                                     <a href="{% url 'blog' %}">مدونتنا</a>
                                 </li>
                                 <li>
-                                    <a href="#contact">إتصل بنا</a>
+                                    <a href="{% if request.resolver_match.url_name == 'index' %}#about_us{% else %}{% url 'index' %}#about_us{% endif %}">من نحن</a>
+                                </li>
+                                <li>
+                                    <a href="{% if request.resolver_match.url_name == 'index' %}#contact{% else %}{% url 'index' %}#contact{% endif %}">إتصل بنا</a>
                                 </li>
                             </ul>
                         </div>

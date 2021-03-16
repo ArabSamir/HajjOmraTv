@@ -169,6 +169,7 @@ class Content(models.Model):
 	header_description_s = models.TextField(   max_length=250 , blank=True , null=True ,verbose_name='وصف رأس الصفحة الثاني')
 	header_image_s = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة رأ الثانيةص الصفحة' )
 	
+	paypal_client_id = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='رقم عميل PayPal')
 	class Meta:
 		verbose_name = _('المحتوى')
 		verbose_name_plural = _('إعدادات المتحويات')
