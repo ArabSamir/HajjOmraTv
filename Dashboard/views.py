@@ -47,7 +47,7 @@ def all_trainings(request):
 @user_passes_test(is_admin)
 def add_training(request):
 	template_name = 'training/add_training.html'
-	form = TrainingForm(request.POST or None)
+	form = TrainingForm(request.POST or None , request.FILES or None)
 	if request.method == 'POST':
 
 		if form.is_valid():

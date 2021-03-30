@@ -7,7 +7,8 @@ from django import forms
 class TrainingForm(forms.ModelForm):
 	training_id = None
 	title = forms.CharField(label= 'العنوان' ,widget=forms.TextInput(attrs={'class': 'form-control'}), required = True)
-	price = forms.CharField(label= 'السعر' ,widget=forms.TextInput(attrs={'class': 'form-control', 'data-masked':"" ,'data-inputmask':"'mask': '€ 999,99'"}), required = True)	
+	price = forms.CharField(label= 'السعر باليورو ' ,widget=forms.TextInput(attrs={'class': 'form-control', 'data-masked':"" ,'data-inputmask':"'mask': '€ 999999,99'"}), required = True)	
+	price_dzd = forms.CharField(label= 'السعر  بالدينار ' ,widget=forms.TextInput(attrs={'class': 'form-control', 'data-masked':"" ,'data-inputmask':"'mask': '€ 999999,99'"}), required = True)	
 	description = forms.CharField(label= 'الوصف' ,widget=forms.Textarea(attrs={'class': 'form-control'}), required = True)	
 
 	class Meta:
@@ -16,6 +17,7 @@ class TrainingForm(forms.ModelForm):
 				'title',
 				'description',
 				'price',
+				'price_dzd',
 				'content',
 				'image',
 			)
@@ -27,13 +29,16 @@ class SectionForm(forms.ModelForm):
 		choices = ()
 		index = 1
 		sections = Section.objects.filter(training=Training.objects.get(pk=self.training_id))
-		for  section  in sections:
-			choices = choices + ((index , index),)
-			index += 1
-			
-			if index == len(sections)+1:
-				choices = choices + ((index , index),)
+		if sections:
 
+			for  section  in sections:
+				choices = choices + ((index , index),)
+				index += 1
+				
+				if index == len(sections)+1:
+					choices = choices + ((index , index),)
+		else:
+			choices = choices + ((1 , 1),)
 
 		self.fields['order'].choices = choices
 	
@@ -56,12 +61,15 @@ class CourseForm(forms.ModelForm):
 		choices = ()
 		index = 1
 		courses = Course.objects.filter(section=Section.objects.get(pk=self.section_id))
-		for  course  in courses:
-			choices = choices + ((index , index),)
-			index += 1
-			
-			if index == len(courses)+1:
+		if courses:
+			for  course  in courses:
 				choices = choices + ((index , index),)
+				index += 1
+				
+				if index == len(courses)+1:
+					choices = choices + ((index , index),)
+		else:
+			choices = ((1 , 1),)
 		self.fields['order'].choices = choices
 	
 	title = forms.CharField(label= 'العنوان' ,widget=forms.TextInput(attrs={'class': 'form-control'}), required = True)
