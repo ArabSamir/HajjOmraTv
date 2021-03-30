@@ -69,7 +69,7 @@ def add_training(request):
 def dash_training_detail(request , pk):
 	template_name = "training/dash_training_detail.html"
 	training = get_object_or_404(Training , pk=pk)
-	training_form = TrainingForm(request.POST or None , instance=training)
+	training_form = TrainingForm(request.POST or None ,request.FILES or None, instance=training)
 	section_form = SectionForm(request.POST or None , pk , training_id = pk)
 	if request.method =='POST':
 		if 'training' in request.POST:
