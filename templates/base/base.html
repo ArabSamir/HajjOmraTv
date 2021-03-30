@@ -10,8 +10,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{% block desctiption %}{% endblock desctiption %}">
-
+    <meta name="description" content="{{content.website_description}}">
+    <meta property="og:image" content="{{content.og_image.url}}" />
+    
     <!-- ========== Page Title ========== -->
     <title>{% block title %}{% endblock title %}</title>
 

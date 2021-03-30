@@ -93,4 +93,4 @@ def update_posts_nb_less(sender , instance , **kwargs):
 	category = instance.category
 	category.nb_posts -= 1
 	category.save()
-post_delete.connect(update_comments_nb_less , sender=Post)
+post_delete.connect(update_posts_nb_less , sender=Post)

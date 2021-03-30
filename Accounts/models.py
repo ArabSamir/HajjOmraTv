@@ -154,15 +154,22 @@ class Contact(models.Model) :
 
 
 class Content(models.Model):
-	logo = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة الشعار')
-	favicon = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة أيقونة الشعار')
 	header_title = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='عنوان رأس الصفحة')
 	header_description = models.TextField(   max_length=250 , blank=True , null=True ,verbose_name='وصف رأس الصفحة')
+	website_description = models.TextField(   max_length=250 , blank=True , null=True ,verbose_name='وصف الموقع ')
+	logo = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة الشعار')
+	favicon = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة أيقونة الشعار')
+	og_image = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة الوصف' )
 	header_image = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة رأص الصفحة')
+	
 	about_us_title = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='عنوان صفحة من نحن')
 	about_us_description = RichTextField(  verbose_name='وصف صفحة من نحن' )
 	about_us_image = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة صفحة من نحن')
+	
 	videos_title = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='عنوان قسم الفيديوهات')
+	subscribe_text = models.TextField(   max_length=250 , blank=True , null=True ,verbose_name='محتوى إشترك معنا')
+	subscribe_url = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='رابط إشترك معنا')
+	
 	blog_title = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='عنوان قسم المقالات')
 	
 	header_title_s = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='عنوان رأس الصفحة الثاني')
@@ -170,6 +177,7 @@ class Content(models.Model):
 	header_image_s = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة رأ الثانيةص الصفحة' )
 	
 	paypal_client_id = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='رقم عميل PayPal')
+	ccp = models.CharField(   max_length=250 , blank=True , null=True ,verbose_name='رقم  الحساب')
 	class Meta:
 		verbose_name = _('المحتوى')
 		verbose_name_plural = _('إعدادات المتحويات')

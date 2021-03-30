@@ -25,6 +25,7 @@ urlpatterns = [
     path('blog/', include('Blog.urls')),
     path('accounts/', include('Accounts.urls')),
     path('trainings/', include('Training.urls')),
+    path('dashboard/', include('Dashboard.urls')),
     # path('ckeditor/', include('ckeditor.urls')),
 
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),

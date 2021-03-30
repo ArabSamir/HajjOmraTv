@@ -8,5 +8,6 @@ urlpatterns = [
 	re_path(r'course/(?P<course_pk>[\w-]+)/$' , course_detail , name='course_detail' ),
 	re_path(r'payment/(?P<pk>[\w-]+)/$' , payment , name='payment' ),
 	re_path(r'active/(?P<pk>[\w-]+)/$' , active_training , name='active_training' ),
+	re_path(r'deactivate/(?P<pk>[\w-]+)/$' , deactivate_training , name='deactivate_training' ),
 	re_path(r'(?P<training_pk>[\w-]+)/$' , training_detail , name='training_detail' ),
 ]

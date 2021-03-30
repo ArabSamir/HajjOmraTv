@@ -47,6 +47,13 @@
                                 <li>
                                     <a href="{% if request.resolver_match.url_name == 'index' %}#contact{% else %}{% url 'index' %}#contact{% endif %}">إتصل بنا</a>
                                 </li>
+                                {% if request.user.is_admin  %}
+                                    
+                                
+                                <li>
+                                    <a href="{% url 'dashboard' %}">لوحة التحكم</a>
+                                </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

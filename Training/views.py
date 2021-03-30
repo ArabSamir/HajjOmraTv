@@ -25,8 +25,11 @@ def trainings (request):
 	user = request.user
 	if not user.is_anonymous :
 		usertrainings = UserTraining.objects.filter(user=user)
-		for usertraining in usertrainings:
-			trainings = trainings.exclude(pk=usertraining.training.pk) 
+		print(f'sdfhskdjfhskd {usertrainings}')
+		
+		if usertrainings.exists():
+			for usertraining in usertrainings:
+				trainings = trainings.exclude(pk=usertraining.training.pk) 
 
 	contact = Contact.objects.all()[0]
 	content = Content.objects.all()[0]
@@ -113,19 +116,18 @@ def course_detail(request , course_pk):
 	
 	course = get_object_or_404(Course , pk=course_pk)
 
-	try:
-		user_training = UserTraining.objects.get( training=course.section.training,user=request.user  )
-	except Exception as e:
-		user_training = False
-	if user_training:
-		if user_training.active == True:
-			pass
+	if not course.opened:
+
+		try:
+			user_training = UserTraining.objects.get( training=course.section.training,user=request.user  )
+		except Exception as e:
+			user_training = False
+		if user_training:
+			if not user_training.active  :
+				messages.error(request , 'لم يتم تفعيل الدورة بعد')		
+				return redirect('training_detail' ,  training_pk=course.section.training.pk)
 		else:
-			messages.error(request , 'لم يتم تفعيل الدورة بعد')		
-			return redirect('training_detail' ,  training_pk=course.section.training.pk)
-	else:
-		# TODO: change to buy training page
-		return redirect('payment' , pk=course_pk)
+			return redirect('payment' , pk=course.section.training.pk)
 	args = {
 		'course':course,
 		'contact':contact,
@@ -136,6 +138,7 @@ def course_detail(request , course_pk):
 
 
 
+@login_required
 def my_trainings(request):
 	template_name = 'my_courses.html'
 	user_trainings = UserTraining.objects.filter(user=request.user )
@@ -230,7 +233,7 @@ def payment(request , pk):
 			send_mail( mail_subject, 'message', settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], html_message = seller_message)
 			messages.success(request , 'لقد تم إرسال البريد الإلكتروني بنجاح')
 			
-			return render(request , 'completed.html')
+			return redirect('completed')
 
 		except Exception as e:
 			messages.error(request , f'لم يتم إرسال البريد الإلكتروني  {e}')
@@ -275,6 +278,7 @@ def test(request):
 
 	return render(request , template_name,args)
 
+@login_required
 def active_training(request, pk ):
 
 	user = request.user
@@ -295,4 +299,20 @@ def active_training(request, pk ):
 			messages.error(request , 'يوجد خطأ في التفعيل')
 		
 
-	return redirect('index')
+	return redirect('orders')
+
+@login_required
+def deactivate_training(request, pk):
+
+	user = request.user
+	if user.email == settings.EMAIL_HOST_USER :
+		try:
+			usertraining = get_object_or_404(UserTraining , pk=pk)
+			usertraining.active = False
+			usertraining.save()
+			messages.success(request , 'تم التعطيل بنجاح')
+		except Exception as e:
+			messages.error(request , 'يوجد خطأ في التعطيل')
+		
+
+	return redirect('orders')

@@ -2,6 +2,7 @@
 {% load l10n %}
 {% load static %}
 
+{% block title %}الدفع{% endblock title %}
 
 {% block body %}
 {% include 'base/header.html'  with contact=contact  content=content %}  
@@ -35,7 +36,7 @@
                                           {% endif %}
                                           {% if not active %}
                                               
-                                          <div class="date product_item_span_detail"><span class="product_item_span">$ {{training.price}} :السعر</span></div>
+                                          <div class="date product_item_span_detail"><span class="product_item_span">DZD {{training.price_dzd}} - € {{training.price}} :السعر</span></div>
                                           
                                           {% endif %}
                                         </div>
@@ -142,10 +143,25 @@
                             </div>
                             <div class="sidebar-item recent-post float-right text-right" data-aos="fade-left">
                                 <div class="title ">
-                                    <h4>اطلب الآن</h4>
+                                    <h4>:اطلب الآن</h4>
                                 </div>
-                                <h5> $ {{training.price}} :السعر</h5>
+                                <div class="title ">
+                                <h5>: CCP  عن طريق </h5>
+                                </div>
+                                <div class="container mb-3">
+                                    
+                                <h5> DZD {{training.price_dzd}} :السعر</h5>
+                                <label>{{content.ccp}} : رقم الحساب </label>
+
+                                </div>
+                                <div class="title ">
+                                <h5>: PayPal عن طريق </h5>
+                                </div>
+                                <div class="container">
+                                    
+                                <h5> € {{training.price}} :السعر</h5>
                                 <div id="paypal-button-container"></div>
+                                </div>
                             </div>
                             
                         </aside>
@@ -164,7 +180,7 @@
 {% block script %}
                   
 
-<script src="https://www.paypal.com/sdk/js?client-id={{content.paypal_client_id}}&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{content.paypal_client_id}}&currency=EUR"></script>
 
 <script>
 

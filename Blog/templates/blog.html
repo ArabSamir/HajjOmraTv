@@ -1,6 +1,10 @@
 {% extends "base/base.html" %}
 {% load static %}
+{% load blog_tags %}
 
+{% block title %}
+    المدونة
+{% endblock title %}
 
 {% block body %}
 {% include 'base/header.html'  with contact=contact  content=content %}    
@@ -145,7 +149,7 @@
                                     <ul class="">
                                     	{% for category in categories %}
 	                                       <li >
-	                                            <a href="/blog/?category={{category.id}}" class="float-right text-right"><span>({{category.nb_posts}})</span> {{category.category_name}}</a>
+	                                            <a href="/blog/?category={{category.id}}" class="float-right text-right"><span>({{category.id|category_nb}})</span> {{category.category_name}}</a>
 	                                        </li>
                                     		
                                     	{% endfor %}

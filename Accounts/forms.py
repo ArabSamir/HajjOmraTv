@@ -151,12 +151,33 @@ class RegisterForm(forms.ModelForm):
 class UserAdminCreationForm(forms.ModelForm):
 	"""A form for creating new users. Includes all the required
 	fields, plus a repeated password."""
-	password1 = forms.CharField(label=' كلمة السر ا', widget=forms.PasswordInput)
-	password2 = forms.CharField(label='تأكيد كلمة السر الجديدة', widget=forms.PasswordInput)
+	email = forms.EmailField(label= 'إسم المستخدم',required=True)
+	name = forms.CharField(label= 'الإسم ',required=True)
+	lastname = forms.CharField(label= 'اللقب',required=True)
+	password1 = forms.CharField(
+		label = 'كلمة السر',
+		strip=False,
+		widget=forms.PasswordInput,
 
+	)
+	password2 = forms.CharField(
+		label = 'تأكيد كلمة السر الجديدة',
+		strip=False,
+		widget=forms.PasswordInput,
+
+	)
+
+
+
+	email.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'E-mail'})
+	name.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'Prénom'})
+	lastname.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'Nom'})
+	password1.widget.attrs.update({'class': 'form-control text-right','autofocus': True, '':'Mot de passe'})
+	password2.widget.attrs.update({'class': 'form-control text-right','autofocus': True , '':'Confirmé le Mot de passe' })
+	
 	class Meta:
 		model = User
-		fields = ('email',)
+		fields = ('email','name' , 'lastname')
 
 	def clean_password2(self):
 		# Check that the two password entries match
@@ -181,10 +202,20 @@ class UserAdminChangeForm(forms.ModelForm):
 	password hash display field.
 	"""
 	password = ReadOnlyPasswordHashField()
+	email = forms.EmailField(label= 'إسم المستخدم',required=True)
+	name = forms.CharField(label= 'الإسم ',required=True)
+	lastname = forms.CharField(label= 'اللقب',required=True)
+	
 
+
+
+	email.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'E-mail'})
+	name.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'Prénom'})
+	lastname.widget.attrs.update({'class': 'form-control text-right','autofocus': True ,'':'Nom'})
+	
 	class Meta:
 		model = User
-		fields = ('email', 'password', 'is_active', 'is_admin')
+		fields = ('email', 'password', 'is_active', 'is_admin' , 'name' , 'lastname')
 
 	def clean_password(self):
 		# Regardless of what the user provides, return the initial value.

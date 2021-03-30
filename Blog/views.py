@@ -11,7 +11,7 @@ def post_detail(request , pk):
 	template_name = 'post_detail.html'
 
 	post = get_object_or_404(Post , pk=pk) 
-	posts = Post.objects.all().order_by('-created_on')
+	posts = Post.objects.filter(statut=1).order_by('-created_on')
 	last_posts = posts[:3]
 	related_posts = posts.filter(category=post.category).exclude(id=post.id)[:3]
 	categories = Category.objects.all()[:5]
@@ -55,7 +55,7 @@ def post_detail(request , pk):
 def blog(request):
 	template_name = 'blog.html'
 
-	posts = Post.objects.all().order_by('-created_on')
+	posts = Post.objects.filter(statut=1).order_by('-created_on')
 	last_posts = posts[:3]
 
 

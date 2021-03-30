@@ -1,5 +1,6 @@
 {% extends "base/base.html" %}
 {% load static %}
+{% block title %}الدورات{% endblock title %}
 
 
 {% block body %}
@@ -50,7 +51,7 @@
 	                                        <a href="{% url 'training_detail' training_pk=training.pk %}" >
 	                                            <img src="{{training.image.url}}"  alt="Thumb">
 	                                        </a>
-	                                        <div class="date product_item_span_detail"><span class="product_item_span">$ {{training.price}} :السعر</span></div>
+	                                        <div class="date product_item_span_detail"><span class="product_item_span">DZD {{training.price_dzd}} - € {{training.price}} :السعر</span></div>
 	                                    </div>
 	                                    <div class="info text-right product_info">
 	                                        <div class="meta">

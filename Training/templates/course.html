@@ -2,7 +2,7 @@
 {% load static %}
 {% load templatetags %}
 
-
+{% block title %}{{course.title}}{% endblock title %}
 {% block body %}
 {% include 'base/header.html'  with contact=contact  content=content %}  
 

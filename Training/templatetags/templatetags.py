@@ -12,8 +12,14 @@ def next( course_id):
 		return next_course.id
 	else:
 		next_section = Section.objects.filter(training=section.training , order__gt=section.order).first()
+		print(next_section)
 		if next_section:
-			return Course.objects.filter(section = next_section ).order_by('order').first().id
+			course = Course.objects.filter(section = next_section ).order_by('order').first()
+			if course:
+		
+				return course.id 
+			else:
+				return ''
 		else:
 			return ''
 
@@ -31,7 +37,13 @@ def previous( course_id):
 	else:
 		previous_section = Section.objects.filter(training=section.training , order__lt=section.order).first()
 		if previous_section:
-			return Course.objects.filter(section = previous_section ).order_by('-order').first().id
+			
+			course = Course.objects.filter(section = previous_section ).order_by('-order').first()
+			if course:
+				return course.id
+
+			else:
+				return ''
 		else:
 			return ''
 

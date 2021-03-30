@@ -5121,9 +5121,33 @@ body,
   padding-bottom: 15px;
 }
 
+.blog-area .sidebar .title h5 {
+  font-weight: 800;
+  margin-bottom: 30px;
+  margin-right: 20px;
+  font-size: 15px !important;
+  margin-top: -5px;
+  position: relative;
+  text-transform: capitalize;
+  z-index: 1;
+  font-size: 20px;
+  display: inline-block;
+  padding-bottom: 15px;
+}
+
 .blog-area .sidebar .title h4::after {
   position: absolute;
-  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  height: 2px;
+  width: 50px;
+  border-bottom: 2px solid #d3b234;
+}
+
+.blog-area .sidebar .title h5::after {
+  position: absolute;
+  right: 0;
   bottom: 0;
   content: "";
   height: 2px;

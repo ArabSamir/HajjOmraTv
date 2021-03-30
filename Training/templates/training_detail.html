@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load static %}
 
+{% block title %}{{training.title}}{% endblock title %}
 
 {% block body %}
 {% include 'base/header.html'  with contact=contact  content=content %}  
@@ -110,10 +111,25 @@
 																				 
 																				 {% for course in section.course_set.all %}
 																				 	
-																				     <div class="card_border">
+																				    <div class="card_border">
 																				        
-																				          <a href="{% url 'course_detail' course_pk=course.pk %}" class="btn btn-link text-right" style="width: 100%">{% if not active %}<i class="fa fa-lock float-left"></i>{% endif %}{{course.title}} <i class="fa fa-arrow-left ml-3"></i></a>
-																				     </div>
+																				        <a href="{% url 'course_detail' course_pk=course.pk %}" class="btn btn-link text-right" style="width: 100%">	
+																				        	{% if active %}
+																				          			<i class="fa fa-unlock-alt float-left"></i>
+																				        	
+																				        	{% else %}
+																				        	    {% if course.opened %}
+																				          			<i class="fa fa-unlock-alt float-left"></i>
+																				        	    
+																				        	    {% else %}
+																				        	            
+																				        	   
+																				          			<i class="fa fa-lock float-left"></i>
+																				        	    {% endif %}
+																				          	{% endif %}{{course.title}} 
+																				          	<i class="fa fa-arrow-left ml-3"></i>
+																				        </a>
+																				    </div>
 																				    
 
 																				 {% endfor %}
