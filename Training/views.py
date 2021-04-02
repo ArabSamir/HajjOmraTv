@@ -19,7 +19,7 @@ from django.db.models import Q
 
 def trainings (request):
 	template_name = 'trainings.html'
-	trainings = Training.objects.all().order_by('-created_on')
+	trainings = Training.objects.filter(statut=1).order_by('-created_on')
 	last_trainings = trainings[:3]
 	
 	user = request.user

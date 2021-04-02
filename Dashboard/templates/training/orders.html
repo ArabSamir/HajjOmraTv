@@ -28,7 +28,28 @@
             <div class="panel-heading">
                 <h4 class="panel-title"> جميع الطلبات</h4>
                 <div class="panel-actions">
+                    <button  type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" >إضافة طلب جديد</button>
                     <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                     <div class="modal fade " id="exampleModal" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel">
+                                      <div class="modal-dialog modal-lg" role="document">
+                                        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                            <div class="modal-content" style="    margin-top: 100px;">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="exampleModalLabel">إضافة طلب</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                    {{form.as_p}}
+                                              </div>
+                                              <div class="modal-footer">
+                                                <!-- <button type="button" class="btn btn-primary">إضافة</button> -->
+                                                <input type="submit" name="add_course" value="إضافة" class="btn btn-sm btn-primary">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
+                                              </div>
+                                            </div>
+                                        </form>
+                                      </div>
+                                    </div>
                     
                 </div>
             </div>

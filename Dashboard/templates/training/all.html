@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
+                <table id="responsive-datatables" class="table table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th> #</th>
@@ -61,6 +61,8 @@
                             <th> الثمن</th>
                             <th> عدد المشتريات</th>
                             <th> تاريخ الإنشاء</th>
+                            <th> الحالة</th>
+                            
                             <th>action</th>
                         </tr>
                     </thead>
@@ -77,6 +79,7 @@
                                 <td>{{training.price}}</td>
                                 <td>{{training.nb_purchase}}</td>
                                 <td>{{training.created_on}}</td>
+                                <td>{% if training.statut == 1 %}<span class="label label-success">ينشر</span>{% else %}<span class="label label-danger">مسودة</span>{% endif %}</td>
                                 <td>
                                     <a href="{% url 'dash_training_detail' pk=training.pk %}" ><i class="fa fa-edit"></i></a>
                                     <a href="#" data-toggle="modal" data-target="#exampleModal{{training.pk}}"><i class="fa fa-trash" style="color: #df645d;"></i></a>

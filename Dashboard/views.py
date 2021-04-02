@@ -198,9 +198,21 @@ def del_course(request , pk):
 def orders(request):
 	template_name  = 'training/orders.html'
 	orders = UserTraining.objects.all().order_by('purchase_date')
+	form = UserTrainingForm(request.POST or None)
+	if request.method == "POST":
+		if form.is_valid():
+			try:
+
+				form.save()
+				messages.success(request, 'تمت الإضافة بنجاح')
+			except Exception as e:
+				messages.error(request, f'لم تتم الإضافة {e}')
+
+			return redirect('orders' )
 
 	args = {
 		'orders':orders,
+		'form':form,
 	}
 
 	return render(request , template_name , args)

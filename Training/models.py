@@ -7,14 +7,22 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Training(models.Model):
+
+	STATUS = (
+		(0,"مسودة"),
+		(1,"ينشر")
+	)
+
 	title = models.CharField(verbose_name=_('عنوان الدورة'),max_length=250 )
 	content = RichTextUploadingField(verbose_name=_('المحتوى'),)
 	image = models.ImageField(verbose_name=_('الصورة'),null=True)
 	description = models.TextField(verbose_name=_('الوصف'),max_length=250 , blank=True,null=True)
-	price = models.DecimalField(verbose_name=_('الثمن'),default=0,max_digits=5, decimal_places=2)
-	price_dzd = models.DecimalField(verbose_name=_('الثمن'),default=0,max_digits=5, decimal_places=2)
+	price = models.DecimalField(verbose_name=_('الثمن'),default=0,max_digits=7, decimal_places=2)
+	price_dzd = models.DecimalField(verbose_name=_('الثمن'),default=0,max_digits=7, decimal_places=2)
 	nb_purchase = models.IntegerField(verbose_name=_('عدد المشتريات'),default=0)
 	created_on = models.DateTimeField(auto_now_add=True , null=True)
+	statut = models.IntegerField(verbose_name=_('الحالة'),choices=STATUS, default=1)
+
 
 	class Meta:
 		ordering = ['-created_on']

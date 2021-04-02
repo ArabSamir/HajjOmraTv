@@ -3,14 +3,19 @@ from Blog.models import *
 from Accounts.models import *
 from django import forms
 
+STATUS = (
+	(0,"مسودة"),
+	(1,"ينشر")
+	)
 
 class TrainingForm(forms.ModelForm):
 	training_id = None
 	title = forms.CharField(label= 'العنوان' ,widget=forms.TextInput(attrs={'class': 'form-control'}), required = True)
-	price = forms.CharField(label= 'السعر باليورو ' ,widget=forms.TextInput(attrs={'class': 'form-control', 'data-masked':"" ,'data-inputmask':"'mask': '€ 999999,99'"}), required = True)	
-	price_dzd = forms.CharField(label= 'السعر  بالدينار ' ,widget=forms.TextInput(attrs={'class': 'form-control', 'data-masked':"" ,'data-inputmask':"'mask': '€ 999999,99'"}), required = True)	
+	price = forms.CharField(label= 'السعر باليورو ' ,widget=forms.TextInput(attrs={'class': 'form-control'}), required = True)	
+	price_dzd = forms.CharField(label= 'السعر  بالدينار ' ,widget=forms.TextInput(attrs={'class': 'form-control'}), required = True)	
 	description = forms.CharField(label= 'الوصف' ,widget=forms.Textarea(attrs={'class': 'form-control'}), required = True)	
-
+	statut = forms.CharField(label='الحالة',widget=forms.Select(attrs={'class': 'form-control '  } ,choices=STATUS ),required = False)
+	
 	class Meta:
 		model = Training
 		fields = (
@@ -20,6 +25,7 @@ class TrainingForm(forms.ModelForm):
 				'price_dzd',
 				'content',
 				'image',
+				'statut',
 			)
 
 class SectionForm(forms.ModelForm):
@@ -87,11 +93,7 @@ class CourseForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-	STATUS = (
-	(0,"مسودة"),
-	(1,"ينشر")
-	)
-
+	
 	title = forms.CharField(label= 'العنوان' ,widget=forms.TextInput(attrs={'class': 'form-control'}), required = True)
 	description = forms.CharField(label= 'الوصف' ,widget=forms.Textarea(attrs={'class': 'form-control'}), required = True)	
 	statut = forms.CharField(label='الحالة',widget=forms.Select(attrs={'class': 'form-control '  } ,choices=STATUS ),required = False)
@@ -175,5 +177,20 @@ class VideoForm(forms.ModelForm):
 	class Meta:
 		model = Video
 		fields = '__all__'
+
+
+
+
+
+class UserTrainingForm(forms.ModelForm):
+	user = forms.ModelChoiceField(label= 'المستخدم',widget=forms.Select(attrs={  'class':'form-control'}),queryset = User.objects.filter(is_active=True))
+	training = forms.ModelChoiceField(label= 'الدورة',widget=forms.Select(attrs={  'class':'form-control'}),queryset = Training.objects.filter(statut=1))
+
+	class Meta:
+		model = UserTraining
+		fields = (
+			'user',
+			'training',
+				)
 
 

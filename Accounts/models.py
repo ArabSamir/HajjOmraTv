@@ -158,6 +158,7 @@ class Content(models.Model):
 	header_description = models.TextField(   max_length=250 , blank=True , null=True ,verbose_name='وصف رأس الصفحة')
 	website_description = models.TextField(   max_length=250 , blank=True , null=True ,verbose_name='وصف الموقع ')
 	logo = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة الشعار')
+	logo_white = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة الشعار الأبيض')
 	favicon = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة أيقونة الشعار')
 	og_image = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة الوصف' )
 	header_image = models.ImageField(upload_to='images/' ,  default='../static/img/photo1.jpg',verbose_name='صورة رأص الصفحة')
